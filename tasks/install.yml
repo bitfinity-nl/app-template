@@ -1,23 +1,22 @@
 ---
-  # Title: app-ms-dynamics-nav2017-client
+  # Title: app-win-template
   #
   # Author: Luc Rutten
-  # Version: 1.0
+  # File: tasks/install.yml
   #
-  # Description: Install MS Dynamics NAV2017 client on Endpoint
-  # File: tasks/windows-amd64.yml 
-
+  # Description: 
+  #   Install Windows package on Endpoint
 
   - name: "Check if package is already installed before downloading installation files. (32bit)"
     win_reg_stat:
-      path: HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\"{{ pkg_product_id }}"
+      path: 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{{ pkg_product_id }}'
     register: pkg_isinstalled
     when:
       - pkg_arch == '32bit'
 
   - name: "Check if package is already installed before downloading installation files. (64bit)"
     win_reg_stat:
-      path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"{{ pkg_product_id }}"
+      path: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{{ pkg_product_id }}'
     register: pkg_isinstalled
     when:
       - pkg_arch == '64bit'
@@ -27,22 +26,22 @@
       path: "{{ pkg_repo_local }}"
       state: directory
     when:
-      - pkg_isinstalled.exists == 'false'
+      - pkg_isinstalled.exists == false
 
   - name: "Download Package"
     win_get_url:
       url: "{{ pkg_repo_remote }}"
-      dest: "{{ pkg_repo_local }}/{{ pkg_name }}"
+      dest: "{{ pkg_repo_local }}\\{{ pkg_name }}.zip"
       force: no
     when:
-      - pkg_isinstalled.exists == 'false'
+      - pkg_isinstalled.exists == false
 
   - name: "Unzip package"
     win_unzip:
-      src: "{{ pkg_repo_local }}/{{ pkg_name }}"
+      src: "{{ pkg_repo_local }}\\{{ pkg_name }}.zip"
       dest: "{{ pkg_repo_local }}"
     when:
-      - pkg_isinstalled.exists == 'false'
+      - pkg_isinstalled.exists == false
 
   - name: "Installing {{ pkg_name }}"
     win_package:
@@ -51,11 +50,12 @@
       arguments: "{{ pkg_arguments }}"
       state: present
     when:
-      - pkg_isinstalled.exists == 'false'
+      - pkg_isinstalled.exists == false
 
   - name: "Removing installation files"
     win_file:
       path: "{{ pkg_repo_local }}"
       state: absent
     when:
-      - pkg_isinstalled.exists == 'false'
+      - pkg_isinstalled.exists == false
+

@@ -5,14 +5,16 @@
   # File: tasks/main.yml
   #
   # Description:
-  #   
+  #   Install Windows package on Endpoint
 
   - name: "Install package when state is present"
     import_tasks: install.yml
     when:
+      - ansible_os_family == "Windows"
       - pkg_state == "present"
 
   - name: "Remove package when state is absent"
     import_tasks: uninstall.yml
     when:
+      - ansible_os_family == "Windows"
       - pkg_state == "absent"
