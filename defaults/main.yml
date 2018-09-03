@@ -1,0 +1,31 @@
+---
+  # Title: app-template
+  #
+  # Author: Luc Rutten
+  # File: defaults/main.yml
+  #
+  # Description:
+  #   Template for building Ansible Windows applications
+
+  # -- Applications settings --
+  #
+  # Variable(s)
+  #   pkg_state        : 'present' or 'absent'                           # Whether the application should be installed or removed (present=install, absent=removed).
+  #   pkg_name         : 'Application 1.0'                               # Name of the application.
+  #   pkg_arch         : '32bit' or '64bit'                              # Whether the application is a 32bit or a 64bit application.
+  #   pkg_repo_local   : '{{ ansible_env.ProgramFiles }}/Ansible/temp/'  # Local path to package.
+  #   pkg_repo_remote  : 'https://remote_url/install.zip'                # Remote url to package (needs to be zip file).
+  #   pkg_product_id   : 'DynamicsNav100'                                # Product can be found in "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" or "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\"
+  #   pkg_installer    : 'setup.exe'                                     # Executable for the installation.
+  #   pkg_arguments    : '/S/v/qn'                                       # Additional Arguments for a silent installation. 
+  #   pkg_uninstaller  : ''                                              # Uninstallstring  
+  #
+  pkg_state        : 'Ã'present'    
+  pkg_name         : 'Application 1.0'
+  pkg_arch         : '32bit' or '64bit'
+  pkg_repo_local   : '{{ ansible_env.ProgramFiles }}/Ansible/temp/'
+  pkg_repo_remote  : 'https://remote_url/install.zip'
+  pkg_product_id   : 'DynamicsNav100'
+  pkg_installer    : 'setup.exe'
+  pkg_arguments    : '/S/v/qn'
+  pkg_unstaller    : ''

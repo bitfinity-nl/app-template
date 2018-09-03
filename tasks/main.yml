@@ -1,0 +1,18 @@
+---
+  # Title: app-win-template
+  #
+  # Author: Luc Rutten
+  # File: tasks/main.yml
+  #
+  # Description:
+  #   
+
+  - name: "Install package when state is present"
+    import_tasks: install.yml
+    when:
+      - pkg_state == "present"
+
+  - name: "Remove package when state is absent"
+    import_tasks: uninstall.yml
+    when:
+      - pkg_state == "absent"
