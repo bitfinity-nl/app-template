@@ -20,7 +20,7 @@
   #   pkg_arguments    : '/S/v/qn'                                       # Additional Arguments for a silent installation. 
   #   pkg_uninstaller  : ''                                              # Uninstallstring  
   #
-  pkg_state        : 'Ã'present'    
+  pkg_state        : 'present'
   pkg_name         : 'Application 1.0'
   pkg_arch         : '32bit' or '64bit'
   pkg_repo_local   : '{{ ansible_env.ProgramFiles }}/Ansible/temp/'
