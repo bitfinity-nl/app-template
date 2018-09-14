@@ -7,14 +7,16 @@
   # Description:
   #   Install Windows package on Endpoint
 
-  - name: "Install package when state is present"
-    import_tasks: install.yml
+  - name: "Install 32bit package when state is present"
+    import_tasks: 32bit-check.yml
     when:
       - ansible_os_family == "Windows"
       - pkg_state == "present"
+      - pkg_arch == "32bit"
 
-  - name: "Remove package when state is absent"
-    import_tasks: uninstall.yml
+  - name: "Install 64bit package when state is present"
+    import_tasks: 64bit-check.yml
     when:
       - ansible_os_family == "Windows"
-      - pkg_state == "absent"
+      - pkg_state == "present"
+      - pkg_arch == "64bit"
